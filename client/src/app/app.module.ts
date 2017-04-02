@@ -9,6 +9,7 @@ import { RouterModule } from "@angular/router";
 import { appRoute } from "./routes";
 import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
+import {TokenService} from "./authentication/token.service";
 
 
 @NgModule({
@@ -24,7 +25,9 @@ import { NavComponent } from './nav/nav.component';
     HttpModule,
     RouterModule.forRoot(appRoute)
   ],
-  providers: [],
+  providers: [
+    TokenService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
