@@ -16,7 +16,6 @@ import { Observable, BehaviorSubject } from 'rxjs';
 export class TokenService {
 
   private _token: BehaviorSubject<Token>;
-
   constructor() {
     this._token = <BehaviorSubject<Token>>new BehaviorSubject(new Token(localStorage.getItem('auth_token')));
   }
@@ -50,6 +49,5 @@ export class TokenService {
     this._token.next(null);
     localStorage.removeItem('auth_token');
   }
-
 
 }

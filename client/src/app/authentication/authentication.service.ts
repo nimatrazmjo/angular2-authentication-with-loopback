@@ -24,6 +24,7 @@ export class AuthenticationService {
           .do(response => {
             if(response) {
                 this._token.setToken(response.json().token)
+                localStorage.setItem("user", JSON.stringify(response.json().results.user))
             }
           }).catch(error => {
             return Observable.of(false)
@@ -37,12 +38,16 @@ export class AuthenticationService {
    * @returns {boolean}
    */
   loggedIn() {
-    let token = this._token.getToken()
+    let token = this._token.getToken();
 
-    if( token && token.token) {
-      return !! token.isExpired()
+    if(token && token.token) {
+      return !token.isExpired();
     }
+    return false;
+  }
 
-    return false
+  logout () {
+    this._token.removeToken()
+    localStorage.removeItem("user")
   }
 }

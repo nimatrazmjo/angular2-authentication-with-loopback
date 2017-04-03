@@ -17,10 +17,13 @@ export class LoginComponent implements OnInit {
   login (formValue) {
 
     this._auth.login (formValue.email, formValue.password).subscribe( response => {
+      console.log(response);
+
       if(!response) {
         this.loginStatus = false
       } else {
         this.loginStatus = true
+
         this.router.navigate(['/'])
       }
     })
