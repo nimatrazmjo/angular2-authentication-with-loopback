@@ -1,12 +1,21 @@
+var expressJTW = require("express-jwt");
+var jwt = require("jsonwebtoken");
+
 module.exports = function (app) {
 
-    var UserModel = app.models.User;
+  /**
+   * Add JWT middleware
+   */
+  app.use(expressJTW({secret : "www.jobs.af"}).unless({ path : ['/login', '/logout']}))
+
+  var UserModel = app.models.User;
 
     app.post('/login', function (req, res) {
 
         const userCredentials = {
             "email": req.body.email,
-            "password": req.body.password
+            "password": req.body.password,
+            "ttl" : 2*60
         }
         UserModel.login(userCredentials, 'user', function (err, token) {
             if (err) {
@@ -16,10 +25,12 @@ module.exports = function (app) {
             }
 
             //transform response to only return the token and ttl
+          token.user.exp = token.ttl
             res.json({
-                "token": token.id,
+                "token_api": token.id,
                 "ttl": token.ttl,
-                "results" : token
+                "user" : token.user,
+                "token_jwt": jwt.sign({email: req.body.email,exp:token.ttl, userId : token.userId,realm : token.user.realm},"www.jobs.af")
             });
         });
     });
@@ -32,10 +43,6 @@ module.exports = function (app) {
         }
         UserModel.logout(access_token, function (err) {
             if (err) {
-                Log.error({
-                    "error": err,
-                    "timestamp": new Date.getTime()
-                });
                 res.status(404).json({"error": "logout failed"});
                 return;
             }

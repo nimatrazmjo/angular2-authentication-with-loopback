@@ -74,11 +74,9 @@ export class Token {
      */
     public isExpired(offsetSeconds: number = 0): boolean {
         let date = this.getExpirationDate();
-
         if(date.getSeconds() === new Date().getSeconds()) {
             return false;
         }
-
         return !(date.valueOf() > (new Date().valueOf() + (offsetSeconds * 1000)));
     }
 }

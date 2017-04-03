@@ -17,7 +17,8 @@ import {TokenService} from "./token.service";
   declarations: [LoginComponent],
   providers: [
         AuthenticationService,
-        TokenService
+        TokenService,
+
     ]
 })
 export class AuthenticationModule { }

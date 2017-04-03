@@ -11,8 +11,11 @@ export class HomeComponent implements OnInit {
   constructor( private _auth: AuthenticationService, private _token : TokenService ) { }
 
   ngOnInit() {
-    this._auth.logout()
-    this.auth_id = JSON.stringify(localStorage)
+    //this._auth.logout()
+    this.auth_id = JSON.stringify(this._auth.loggedIn())+
+      " timeout :"+ this._auth.loggedIn()+" \n" +
+      " token :"+ JSON.stringify(this._token.getToken()) +
+        " exp Date :  "+ JSON.stringify(this._auth.getExpirationDate())
   }
 
 }
