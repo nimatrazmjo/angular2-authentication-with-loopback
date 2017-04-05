@@ -8,6 +8,8 @@ import {TokenService} from "../authentication/token.service";
 })
 export class HomeComponent implements OnInit {
   auth_id :any
+
+  storeage : any
   constructor( private _auth: AuthenticationService, private _token : TokenService ) { }
 
   ngOnInit() {
@@ -17,5 +19,7 @@ export class HomeComponent implements OnInit {
       ""+ JSON.stringify(this._token.getToken()) +
       " exp Date :  "+ new Date(this._auth.getExpirationDate())+
       "jwt Token : "+ this._auth.jwtExpired()
+
+    this.storeage = JSON.stringify(localStorage)
   }
 }

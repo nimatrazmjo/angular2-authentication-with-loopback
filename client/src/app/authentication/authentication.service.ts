@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import {Http, Headers, RequestOptions} from "@angular/http";
 import { TokenService } from "./token.service";
 import { Observable } from "rxjs";
-import { tokenNotExpired } from "angular2-jwt"
+import { tokenNotExpired, JwtHelper } from "angular2-jwt"
 
 @Injectable()
 export class AuthenticationService {
 
-  constructor(private _http : Http, private _token: TokenService) { }
+  constructor(private _http : Http, private _token: TokenService, private jwt : JwtHelper) { }
 
 
   /**
