@@ -1,0 +1,31 @@
+{
+  "name": "computer",
+  "plural": "computers",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "serial_no": {
+      "type": "string",
+      "required": true
+    },
+    "modal": {
+      "type": "string",
+      "required": true
+    },
+    "specification": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

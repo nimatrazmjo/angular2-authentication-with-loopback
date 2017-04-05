@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, Headers, RequestOptions} from "@angular/http";
 import { TokenService } from "./token.service";
 import { Observable } from "rxjs";
+import { tokenNotExpired } from "angular2-jwt"
 
 @Injectable()
 export class AuthenticationService {
@@ -41,7 +42,7 @@ export class AuthenticationService {
     let token = this._token.getToken();
 
     if(token && token.token) {
-      return token.isExpired();
+      return !token.isExpired();
     }
     return false;
   }
@@ -49,10 +50,17 @@ export class AuthenticationService {
   getExpirationDate(): any {
 
     let token = this._token.getToken()
-    if(token && token.token) {
+    if (token && token.token) {
       return token.getExpirationDate()
     }
     return false
+  }
+
+  isExpired() {
+    let token = this._token.getToken()
+    if (token && token.token) {
+      return token.isExpired()
+    }
   }
 
   logout () {
@@ -63,4 +71,9 @@ export class AuthenticationService {
     let option = new RequestOptions({headers: headers})
     this._http.post('/logout',JSON.stringify({}),option)
   }
+
+  jwtExpired() {
+    return !tokenNotExpired
+  }
+
 }

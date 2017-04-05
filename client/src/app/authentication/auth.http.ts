@@ -13,6 +13,8 @@ import { IAuthConfig, AuthConfig } from './auth.config';
 import { TokenService } from './token.service';
 import { Token } from './token.model';
 
+import "angular2-jwt";
+import { JwtConfigService, JwtHttp } from 'angular2-jwt-refresh';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
@@ -75,6 +77,8 @@ export class AuthHttp {
                 });
             }
         } else {
+
+            // referesh token for every request
             req.headers.set(this.config.headerName, this.config.headerPrefix + token.token);
         }
 
@@ -108,4 +112,35 @@ export class AuthHttp {
     public options(url: string, options?: RequestOptionsArgs): Observable<Response> {
         return this.requestHelper({ body: '', method: RequestMethod.Options, url: url }, options);
     }
+
+  getJwtHttp(http: Http, options: RequestOptions) {
+   let jwtOptions = {
+    endPoint: 'https://myapi.domain.com/auth',
+    // optional
+    payload: { type: 'refresh' },
+    beforeSeconds: 600, // refresh tokeSn before 10 min
+    tokenName: 'refresh_token',
+    refreshTokenGetter: (() => localStorage.getItem('refresh_token')),
+    tokenSetter: ((res: Response): boolean | Promise<void> => {
+      res = res.json();
+
+      if (!res['id_token'] || !res['refresh_token']) {
+        localStorage.removeItem('id_token');
+        localStorage.removeItem('refresh_token');
+
+        return false;
+      }
+
+      localStorage.setItem('id_token', res['id_token']);
+      localStorage.setItem('refresh_token', res['refresh_token']);
+
+      return true;
+    })
+  };
+  let authConfig = new AuthConfig({
+    noJwtError: true,
+    globalHeaders: [{'Accept': 'application/json'}],
+    tokenGetter: (() => localStorage.getItem('id_token')),
+  });
+}
 }

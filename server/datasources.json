@@ -1,9 +1,10 @@
 {
-    "db": {
-        "host": "127.0.0.1",
-        "port": 27017,
-        "url": "",
-        "database": "angular2-authentication",
-        "connector": "mongodb"
-    }
+  "db": {
+    "host": "127.0.0.1",
+    "port": 27017,
+    "url": "",
+    "database": "angular2-authentication",
+    "name": "db",
+    "connector": "mongodb"
+  }
 }

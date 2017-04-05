@@ -13,9 +13,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     //this._auth.logout()
     this.auth_id = JSON.stringify(this._auth.loggedIn())+
-      " timeout :"+ this._auth.loggedIn()+" \n" +
-      " token :"+ JSON.stringify(this._token.getToken()) +
-        " exp Date :  "+ JSON.stringify(this._auth.getExpirationDate())
+      " timeout :"+ this._auth.loggedIn()+" \n"+
+      ""+ JSON.stringify(this._token.getToken()) +
+      " exp Date :  "+ new Date(this._auth.getExpirationDate())+
+      "jwt Token : "+ this._auth.jwtExpired()
   }
-
 }

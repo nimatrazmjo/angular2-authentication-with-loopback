@@ -56,17 +56,14 @@ export class Token {
     /**
      * Gets the expiration date of this token.
      */
-    public getExpirationDate(): Date {
+    public getExpirationDate(): any {
         let decoded = this.decodeToken();
 
-        if(!decoded.hasOwnProperty('exp')) {
+        if(!decoded.hasOwnProperty('exp') ) {
             return new Date();
         }
-
-        let date = new Date(0);
-        date.setUTCSeconds(decoded.exp);
-
-        return date;
+        let date = new Date(decoded.exp);
+        return date
     }
 
     /**
@@ -77,6 +74,6 @@ export class Token {
         if(date.getSeconds() === new Date().getSeconds()) {
             return false;
         }
-        return !(date.valueOf() > (new Date().valueOf() + (offsetSeconds * 1000)));
+        return !(date.valueOf() > new Date().valueOf());
     }
 }

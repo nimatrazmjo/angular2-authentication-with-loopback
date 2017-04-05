@@ -15,7 +15,7 @@ module.exports = function (app) {
         const userCredentials = {
             "email": req.body.email,
             "password": req.body.password,
-            "ttl" : 2*60
+            "ttl" : 3*60
         }
         UserModel.login(userCredentials, 'user', function (err, token) {
             if (err) {
@@ -30,7 +30,8 @@ module.exports = function (app) {
                 "token_api": token.id,
                 "ttl": token.ttl,
                 "user" : token.user,
-                "token_jwt": jwt.sign({email: req.body.email,exp:token.ttl, userId : token.userId,realm : token.user.realm},"www.jobs.af")
+                "info" : token,
+                "token_jwt": jwt.sign({email: req.body.email,exp:new Date().valueOf()+token.ttl*1000, userId : token.userId,realm : token.user.realm},"www.jobs.af")
             });
         });
     });

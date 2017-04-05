@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
     this._auth.login (formValue.email, formValue.password)
       .subscribe( response => {
-        console.log();
+        console.log(response);
 
         if(!response) {
           this.loginStatus = false

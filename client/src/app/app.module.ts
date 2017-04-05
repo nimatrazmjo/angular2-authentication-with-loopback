@@ -11,13 +11,15 @@ import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 import { TokenService } from "./authentication/token.service";
 import { AuthenticationService } from "./authentication/authentication.service";
+import { ComputerComponent } from './computer/computer.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    NavComponent
+    NavComponent,
+    ComputerComponent
   ],
   imports: [
     NgbModule.forRoot(),
