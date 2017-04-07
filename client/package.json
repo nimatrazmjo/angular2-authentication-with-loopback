@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "^4.0.1",
     "@angular/router": "^4.0.1",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.22",
+    "angular2-jwt": "^0.2.0",
     "angular2-jwt-refresh": "0.0.9",
     "core-js": "^2.4.1",
     "rxjs": "^5.3.0",
