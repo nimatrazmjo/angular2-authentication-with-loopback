@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "angular2-jwt": "^0.2.0",
-    "eslint": "^2.13.1",
+    "eslint": "^6.6.0",
     "eslint-config-loopback": "^4.0.0",
     "nsp": "^2.1.0"
   },
